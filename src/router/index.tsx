@@ -17,7 +17,9 @@ import TinkingInReactPage from "../pages/learn/TinkingInReact";
 import InstallationPage from "../pages/learn/Installation";
 import ContributePage from "../pages/Contribute";
 import LoginPage from "../pages/Login";
-import ProtectedRoute from "../auth/ProtectedRoute";
+import ProtectedRoute from "../components/auth/ProtectedRoute";
+import ErrorRouteHandler from "../components/errors/ErrorHandler";
+import PageNotFound from "../pages/PageNotFound";
 
 const isLoggedIn = true;
 const userData: {email:string} | null = isLoggedIn ? {email: "email@gmail.com"} : null;
@@ -26,7 +28,7 @@ const userData: {email:string} | null = isLoggedIn ? {email: "email@gmail.com"} 
 const router = createBrowserRouter(createRoutesFromElements(
     <>
     {/* Root Layout */}
-    <Route path="/" element={<RootLayout/>}>
+    <Route path="/" element={<RootLayout/>} errorElement={<ErrorRouteHandler/>}>
       <Route index element={<HomePage/>}/>
       <Route path="/contact" element={<ContactPage/>}/>
       <Route path="/about" element={<AboutPage/>}/>
@@ -46,6 +48,9 @@ const router = createBrowserRouter(createRoutesFromElements(
       <Route path="thinking-in-react" element={<TinkingInReactPage/>}/>
       <Route path="installation" element={<InstallationPage/>}/>
     </Route>
+
+    {/* Page not found */}
+    <Route path="*" element={<PageNotFound/>}/>
     </>
 ));
 
